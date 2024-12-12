@@ -5,6 +5,20 @@ import axios from 'axios';
 import SuggestionsList from './components/Suggestions';
 import Map from './components/Map';
 import Info from './components/Info';
+import {
+  ChakraProvider,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Text,
+  VStack,
+  Icon,
+  IconButton,
+  Box, Button, Input
+} from '@chakra-ui/react';
+import { defaultSystem } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 
 function App() {
   const [address, setAddress] = useState('');
@@ -99,13 +113,29 @@ function App() {
   
 
   return (
-    <div>
-      <h1>Spatial Data Visualization</h1>
+    <ChakraProvider value={defaultSystem}>
+    <Box w='1100px' mx="auto">
+      <Heading fontSize={"4xl"}>Spatial Data Test</Heading><br></br>
       <Search handleInput={handleInput} handleSearch={handleSearch} address={address}/>
-      <SuggestionsList suggestions={suggestions} handleAddressClick={handleAddressClick}></SuggestionsList>
-      <Map selectedLocation={selectedLocation} parcelGeometry={parcelGeometry}></Map>
-      <Info parcelInfo={parcelInfo}></Info>
-    </div>
+      <Grid
+          templateColumns="3fr 4.5fr 3fr"
+          gap={4}
+        >
+          <GridItem border="1px solid" borderColor="gray.200"  borderRadius={"md"} p={4} minHeight="100%">
+            <SuggestionsList suggestions={suggestions} handleAddressClick={handleAddressClick}></SuggestionsList>
+          </GridItem>
+
+          <GridItem border="1px solid" borderColor="gray.200"  borderRadius={"md"} p={4} minHeight="100%">
+            <Map selectedLocation={selectedLocation} parcelGeometry={parcelGeometry}></Map>
+          </GridItem>
+
+          <GridItem border="1px solid" borderColor="gray.200"  borderRadius={"md"} p={4} minHeight="100%">
+            <Info parcelInfo={parcelInfo}></Info>
+          </GridItem>
+
+    </Grid>
+    </Box>
+    </ChakraProvider>
   )
 }
 
