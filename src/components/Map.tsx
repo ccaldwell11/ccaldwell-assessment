@@ -22,7 +22,8 @@ const GeoMap: React.FC<GeoMapProps> = ({
 }) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<Map | null>(null);
-  const [vectorLayer, setVectorLayer] = useState<VectorLayer<VectorSource> | null>(null);
+  const [vectorLayer, setVectorLayer] =
+    useState<VectorLayer<VectorSource> | null>(null);
 
   useEffect(() => {
     const initialMap = new Map({
@@ -55,12 +56,11 @@ const GeoMap: React.FC<GeoMapProps> = ({
 
   useEffect(() => {
     if (parcelGeometry && map) {
-      console.log('GEO', parcelGeometry);
-
       const vectorSource = new VectorSource();
 
       // create polygon/parcel (shape and area of land plot)
-      const features = parcelGeometry.rings.map((ring) => { // rings are like mathematical points
+      const features = parcelGeometry.rings.map((ring) => {
+        // rings are like mathematical points
         return new Feature({
           geometry: new Polygon([ring]),
         });

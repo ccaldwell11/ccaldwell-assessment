@@ -2,17 +2,20 @@ import React from 'react';
 import { Box } from '@chakra-ui/react';
 
 interface Suggestion {
-  address: string; 
+  address: string;
   coordinates?: [number, number];
 }
 
 interface SuggestionsListProps {
-  suggestions: Suggestion[]; 
+  suggestions: Suggestion[];
   handleAddressClick: (suggestion: Suggestion) => void;
 }
-const SuggestionsList: React.FC<SuggestionsListProps> = ({ suggestions, handleAddressClick }) => {
+const SuggestionsList: React.FC<SuggestionsListProps> = ({
+  suggestions,
+  handleAddressClick,
+}) => {
   return (
-      <Box
+    <Box
       display={'flex'}
       flexDirection={'column'}
       justifyContent={'center'}
@@ -24,17 +27,17 @@ const SuggestionsList: React.FC<SuggestionsListProps> = ({ suggestions, handleAd
       height={'100%'}
       textAlign={'center'}
     >
-        {suggestions.map((suggestion, index: number) => (
-          <h2 
-          key={index} 
+      {suggestions.map((suggestion, index: number) => (
+        <h2
+          key={index}
           onClick={() => handleAddressClick(suggestion)}
           style={{ cursor: 'pointer' }}
-          >
-            {suggestion.address || 'address does not exist'}
-          </h2>
-        ))}
-      </Box>
-  )
-}
+        >
+          {suggestion.address || 'address does not exist'}
+        </h2>
+      ))}
+    </Box>
+  );
+};
 
 export default SuggestionsList;
