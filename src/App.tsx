@@ -41,7 +41,7 @@ function App() {
     if (!query) return;
     setLoading(true); 
     axios
-      .get(`http://localhost:3002/address/suggestions?query=${query}`)
+      .get(`https://ccaldwell-assessment-production.up.railway.app/address/suggestions?query=${query}`)
       .then((response) => {
         setSuggestions(response.data.slice(0, 7));
       })
@@ -82,7 +82,7 @@ function App() {
   };
 
   const fetchParcelGeometry = (lat: number, long: number) => {
-    const url = `http://localhost:3002/parcel/geometry?lat=${lat}&long=${long}`;
+    const url = `https://ccaldwell-assessment-production.up.railway.app/parcel/geometry?lat=${lat}&long=${long}`;
 
     axios
       .get(url)
@@ -99,7 +99,7 @@ function App() {
   };
 
   const fetchParcelInfo = (lat: number, long: number) => {
-    const url = `http://localhost:3002/parcel/info?lat=${lat}&long=${long}`;
+    const url = `https://ccaldwell-assessment-production.up.railway.app/parcel/info?lat=${lat}&long=${long}`;
 
     axios
       .get(url)
