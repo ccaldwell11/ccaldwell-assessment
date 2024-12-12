@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Spinner } from '@chakra-ui/react';
 
 interface Suggestion {
   address: string;
@@ -9,10 +9,12 @@ interface Suggestion {
 interface SuggestionsListProps {
   suggestions: Suggestion[];
   handleAddressClick: (suggestion: Suggestion) => void;
+  loading: boolean
 }
 const SuggestionsList: React.FC<SuggestionsListProps> = ({
   suggestions,
   handleAddressClick,
+  loading
 }) => {
   return (
     <Box
@@ -27,6 +29,11 @@ const SuggestionsList: React.FC<SuggestionsListProps> = ({
       height={'100%'}
       textAlign={'center'}
     >
+      {loading && (
+          <Box display="flex" justifyContent="center" py={4}>
+            <Spinner size="lg" color="red.500" />
+          </Box>
+        )}
       {suggestions.map((suggestion, index: number) => (
         <h2
           key={index}

@@ -35,10 +35,11 @@ function App() {
   );
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [parcelInfo, setParcelInfo] = useState<ParcelInfo | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchSuggestions = (query: string) => {
     if (!query) return;
-
+    setLoading(true); 
     axios
       .get(`http://localhost:3002/address/suggestions?query=${query}`)
       .then((response) => {
@@ -46,7 +47,8 @@ function App() {
       })
       .catch((error) => {
         console.error('error fetching address suggestions', error);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +88,7 @@ function App() {
       .get(url)
       .then(({ data }) => {
         if (data && data.geometry) {
-          const geometry = data.geometry;
+          // const geometry = data.geometry;
 
           setParcelGeometry({ rings: data.geometry.rings });
         }
@@ -133,6 +135,7 @@ function App() {
             <SuggestionsList
               suggestions={suggestions}
               handleAddressClick={handleAddressClick}
+              loading={loading}
             ></SuggestionsList>
           </GridItem>
 
