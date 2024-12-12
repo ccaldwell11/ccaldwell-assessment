@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'; 
-import axios from 'axios';
 
-const Search = ({handleInput, handleSearch, address, suggestions}) => {
+const Search = ({handleInput, handleSearch, address}) => {
   // address being searched for
   
 

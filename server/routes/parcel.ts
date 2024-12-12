@@ -27,6 +27,20 @@ Parcel.get('/geometry', (req, res) => {
     
 });
 
+Parcel.get('/info', (req, res) => {
+  const { lat , long } = req.query;
+
+  const url = `https://gis.nola.gov/arcgis/rest/services/dev/property3/MapServer/15/query?geometry=${lat},${long}&geometryType=esriGeometryPoint&inSR=3857&spatialRel=esriSpatialRelIntersects&outFields=*&f=json`;
+
+  axios.get(url).then(response => {
+        res.json(response.data);
+    })
+    .catch(error => {
+        console.error('error fetching parcel data:', error.message);
+        res.sendStatus(500);
+    });
+});
+
 
 
 export default Parcel;
