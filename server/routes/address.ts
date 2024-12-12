@@ -10,6 +10,8 @@ const Address = express.Router();
 Address.get('/suggestions', (req, res) => {
     const { query } = req.query as string;
   
+    // axios.get(`https://gis.nola.gov/arcgis/rest/services/dev/property3/MapServer/14/query?where=FULLADDR%20%3D%20%27${query}%27%20AND%20MUNICIPALITY%20%3D%20%27New%20Orleans%27&outFields=FULLADDR%2CMUNICIPALITY&returnGeometry=true&f=json`)
+
     // exact and/or only search result
     axios.get('https://gis.nola.gov/arcgis/rest/services/dev/property3/MapServer/14/query', {
         params: {
