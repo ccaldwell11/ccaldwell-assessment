@@ -1,20 +1,28 @@
 import React from 'react';
-import { Box, VStack, Flex, Heading } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
+interface Suggestion {
+  address: string; 
+  coordinates?: [number, number];
+}
 
-const SuggestionsList = ({ suggestions, handleAddressClick }) => {
+interface SuggestionsListProps {
+  suggestions: Suggestion[]; 
+  handleAddressClick: (suggestion: Suggestion) => void;
+}
+const SuggestionsList: React.FC<SuggestionsListProps> = ({ suggestions, handleAddressClick }) => {
   return (
       <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      border="0.5px solid"
-      borderColor="gray.300"
-      borderRadius="md"
+      display={'flex'}
+      flexDirection={'column'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      border={'0.5px solid'}
+      borderColor={'gray.300'}
+      borderRadius={'md'}
       p={7}
-      height="100%"
-      textAlign="center"
+      height={'100%'}
+      textAlign={'center'}
     >
         {suggestions.map((suggestion, index: number) => (
           <h2 

@@ -1,8 +1,18 @@
-import React, {useState, useEffect} from 'react'; 
-import { Box, VStack, Flex, Heading } from '@chakra-ui/react';
+import React from 'react'; 
+import { Box, Heading } from '@chakra-ui/react';
 
+interface InfoProps {
+    parcelInfo?: {
+      SITEADDRESS: string;
+      OWNERNME1: string;
+      ASS_DIMS: string;
+      ASS_SQFT: string;
+      PRPRTYDSCRP: string;
+    } | null;
+  }
+  
 
-const Info = ({parcelInfo}) => {
+const Info:React.FC<InfoProps> = ({parcelInfo}) => {
 
   if (!parcelInfo) {
     return <Heading>No parcel info available</Heading>;
@@ -10,16 +20,16 @@ const Info = ({parcelInfo}) => {
 
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      border="1px solid"
-      borderColor="gray.300"
-      borderRadius="md"
+      display={'flex'}
+      flexDirection={'column'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      border={'1px solid'}
+      borderColor={'gray.300'}
+      borderRadius={'md'}
       p={6}
-      height="100%"
-      textAlign="center"
+      height={'100%'}
+      textAlign={'center'}
     >    
       <p><strong>Full Address:</strong> {parcelInfo.SITEADDRESS}</p>
       <p><strong>Owner:</strong> {parcelInfo.OWNERNME1}</p>

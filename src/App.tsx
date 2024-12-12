@@ -7,25 +7,36 @@ import Map from './components/Map';
 import Info from './components/Info';
 import {
   ChakraProvider,
-  Flex,
   Grid,
   GridItem,
   Heading,
-  Text,
-  VStack,
-  Icon,
-  IconButton,
-  Box, Button, Input
+  Box,
 } from '@chakra-ui/react';
 import { defaultSystem } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+
+interface Location {
+  lat: number;
+  long: number;
+}
+
+interface ParcelGeometry {
+  rings: [number, number][][];
+}
+
+interface ParcelInfo {
+  SITEADDRESS: string;
+  OWNERNME1: string;
+  ASS_DIMS: string;
+  ASS_SQFT: string;
+  PRPRTYDSCRP: string;
+}
 
 function App() {
   const [address, setAddress] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState<any>(null);
-  const [parcelGeometry, setParcelGeometry] = useState<any | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const [parcelGeometry, setParcelGeometry] = useState<ParcelGeometry | null>(null);
   const [suggestions, setSuggestions] = useState<any[]>([]);
-  const [parcelInfo, setParcelInfo] = useState<any | null>(null);
+  const [parcelInfo, setParcelInfo] = useState<ParcelInfo | null>(null);
 
   
   const fetchSuggestions = (query: string) => {
@@ -80,15 +91,12 @@ function App() {
   
     axios
       .get(url)
-      .then((response) => {
-        if (response.data && response.data.geometry) {
-          const geometry = response.data.geometry;
-          console.log('Setting parcel geometry:', geometry, response.data);
+      .then(({data}) => {
+        if (data && data.geometry) {
+          const geometry = data.geometry;
+          console.log('Setting parcel geometry:', geometry, data);
   
-          setParcelGeometry((prev) => ({
-            ...prev,
-            ...geometry,
-          }));
+          setParcelGeometry({ rings: data.geometry.rings });
         }
       })
       .catch((error) => {
@@ -114,22 +122,22 @@ function App() {
 
   return (
     <ChakraProvider value={defaultSystem}>
-    <Box w='1100px' mx="auto">
-      <Heading fontSize={"4xl"}>Spatial Data Test</Heading><br></br>
+    <Box w={'1100px'} mx={'auto'}>
+      <Heading fontSize={'4xl'}>Spatial Data Test</Heading><br></br>
       <Search handleInput={handleInput} handleSearch={handleSearch} address={address}/>
       <Grid
-          templateColumns="3fr 4.5fr 3fr"
+          templateColumns={'3fr 4.5fr 3fr'}
           gap={4}
         >
-          <GridItem border="1px solid" borderColor="gray.200"  borderRadius={"md"} p={4} minHeight="100%">
+          <GridItem border={'1px solid'} borderColor={'gray.200'}  borderRadius={'md'} p={4} minHeight={'100%'}>
             <SuggestionsList suggestions={suggestions} handleAddressClick={handleAddressClick}></SuggestionsList>
           </GridItem>
 
-          <GridItem border="1px solid" borderColor="gray.200"  borderRadius={"md"} p={4} minHeight="100%">
+          <GridItem border={'1px solid'} borderColor={'gray.200'}  borderRadius={'md'} p={4} minHeight={'100%'}>
             <Map selectedLocation={selectedLocation} parcelGeometry={parcelGeometry}></Map>
           </GridItem>
 
-          <GridItem border="1px solid" borderColor="gray.200"  borderRadius={"md"} p={4} minHeight="100%">
+          <GridItem border={'1px solid'} borderColor={'gray.200'}  borderRadius={'md'} p={4} minHeight={'100%'}>
             <Info parcelInfo={parcelInfo}></Info>
           </GridItem>
 
