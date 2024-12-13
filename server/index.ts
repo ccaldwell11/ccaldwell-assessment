@@ -10,12 +10,15 @@ const PORT = 3002;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://ccaldwell-spatial.netlify.app',
+  methods: ['GET'],
+}));
 app.use(express.json());
 
 app.use('/address', Address);
 app.use('/parcel', Parcel);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on https://ccaldwell-assessment-production.up.railway.app`);
 });
