@@ -28,7 +28,7 @@ Address.get('/suggestions', (req, res) => {
       }
     )
     .then(({ data }) => {
-      let features = data.features;
+      let features = data.features || [];
       if (features.length > 0) {
         return res.json(
           features.map((feature: any) => ({
