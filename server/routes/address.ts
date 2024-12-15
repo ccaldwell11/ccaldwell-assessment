@@ -28,7 +28,7 @@ Address.get('/suggestions', (req, res) => {
       }
     )
     .then(({ data }) => {
-      let features = data.features || [];
+      let features = data?.features || []; // opt. chaining to avoid undefined error
       if (features.length > 0) {
         return res.json(
           features.map((feature: any) => ({
@@ -55,7 +55,7 @@ Address.get('/suggestions', (req, res) => {
       );
     })
     .then(({ data }) => {
-      const features = data.features || [];
+      const features = data?.features || [];
       return res.json(
         features.map((feature: any) => ({
           address: feature.attributes.FULLADDR,
