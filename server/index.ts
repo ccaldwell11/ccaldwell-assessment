@@ -12,6 +12,8 @@ const app = express();
 
 app.use(cors({
   origin: 'https://ccaldwell-spatial.netlify.app',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
 }));
 app.use(express.json());
 
